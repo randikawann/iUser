@@ -17,8 +17,10 @@ class UserDetailViewModel: ObservableObject {
     }
     
     func fetchSelectedUser(userEmail: String) {
+        self.popupEvent = .loading(true)
         userRepository.fetchSelectedUser(id: userEmail) { [weak self] isSuccess, user, error in
             DispatchQueue.main.async {
+                self?.popupEvent = .loading(false)
                 if isSuccess && user != nil {
                     self?.user = user
                 } else {

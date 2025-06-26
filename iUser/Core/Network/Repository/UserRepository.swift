@@ -42,8 +42,7 @@ final class UserRepository: UserRepositoryProtocol {
 extension UserRepository {
     func filterSingleUser(users: [RandomUser], email: String)-> UserDetail? {
         let users = users.map { $0.toDomainSingle() }
-//        let selectedUser = users.first {$0.email == email}
-        let selectedUser = users.first {$0.email == ""}
+        let selectedUser = users.first {$0.email == email}
         return selectedUser
     }
 }

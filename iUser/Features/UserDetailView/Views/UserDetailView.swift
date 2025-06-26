@@ -8,30 +8,32 @@
 import SwiftUI
 
 struct UserDetailView: View {
-    @ObservedObject private var userDetailVM = UserDetailViewModel()
+    @StateObject private var userDetailVM = UserDetailViewModel()
     
     @EnvironmentObject var popupManager: PopupManager
     
     let userEmail: String
     
     var body: some View {
-        VStack(spacing: 20) {
-            if let user = userDetailVM.user {
-                AsyncImage(url: URL(string: user.largeImage)) { image in
-                    image.resizable()
-                } placeholder: {
-                    ProgressView()
+        NavigationView {
+            VStack(spacing: 20) {
+                if let user = userDetailVM.user {
+                    AsyncImage(url: URL(string: user.largeImage)) { image in
+                        image.resizable()
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    .frame(width: 150, height: 150)
+                    .clipShape(Circle())
+                    
+                    Text(user.fullName).font(.title)
+                    Text(user.email).foregroundColor(.secondary)
+                    Text(user.phone).foregroundColor(.secondary)
+                    
+                    Spacer()
+                } else {
+                    Text("xcvbcvbrxctvyb").foregroundColor(.secondary)
                 }
-                .frame(width: 150, height: 150)
-                .clipShape(Circle())
-                
-                Text(user.fullName).font(.title)
-                Text(user.email).foregroundColor(.secondary)
-                Text(user.phone).foregroundColor(.secondary)
-                
-                Spacer()
-            } else {
-                Text("").foregroundColor(.secondary)
             }
         }
         .onAppear(){
