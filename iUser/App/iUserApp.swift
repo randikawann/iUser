@@ -10,11 +10,15 @@ import SwiftUI
 @main
 struct iUserApp: App {
     let persistenceController = PersistenceController.shared
-
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            HomeView()
+                .environmentObject(PopupManager.shared)
+                .overlay(
+                    PopupView()
+                        .environmentObject(PopupManager.shared)
+                )
         }
     }
 }
