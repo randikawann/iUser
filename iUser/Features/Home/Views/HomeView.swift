@@ -13,34 +13,65 @@ struct HomeView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
+            VStack(alignment: .leading, spacing: 16) {
+                
                 Text("iUser")
-                    .font(.headline)
-                CommonTextField(hint: "Search name", value: $homeVM.inputText)
+                    .font(.largeTitle).bold()
                     .padding(.horizontal, 16)
-
-                List(homeVM.filteredUsers, id: \.id) { user in
-                    NavigationLink(destination: UserDetailView(userEmail: user.email)                    ) {
-                        HStack {
-                            AsyncImage(url: URL(string: user.thumbImage)) { image in
-                                image.resizable()
-                            } placeholder: {
-                                ProgressView()
+                    .padding(.top, 16)
+                
+                CommonTextField(hint: "Search by name", value: $homeVM.inputText)
+                    .padding(.horizontal, 16)
+                
+                ScrollView {
+                    LazyVStack(spacing: 12) {
+                        ForEach(homeVM.filteredUsers, id: \.id) { user in
+                            NavigationLink(destination: UserDetailView(userEmail: user.email)) {
+                                HStack(spacing: 16) {
+                                    AsyncImage(url: URL(string: user.thumbImage)) { image in
+                                        image
+                                            .resizable()
+                                            .scaledToFill()
+                                    } placeholder: {
+                                        ProgressView()
+                                    }
+                                    .frame(width: 60, height: 60)
+                                    .clipShape(Circle())
+                                    .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                                    .shadow(radius: 3)
+                                    
+                                    VStack(alignment: .leading, spacing: 4) {
+                                        Text(user.name)
+                                            .font(.headline)
+                                            .foregroundColor(.primary)
+                                        Text(user.email)
+                                            .font(.subheadline)
+                                            .foregroundColor(.gray)
+                                    }
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: "chevron.right")
+                                        .foregroundColor(.gray)
+                                }
+                                .padding()
+                                .background(Color.white)
+                                .cornerRadius(16)
+                                .shadow(color: Color.black.opacity(0.05), radius: 4, x: 0, y: 2)
+                                .padding(.horizontal, 16)
                             }
-                            .frame(width: 50, height: 50)
-                            .clipShape(Circle())
-                            
-                            Text(user.name)
                         }
                     }
+                    .padding(.top, 8)
                 }
-
             }
+            .background(Color(.systemGroupedBackground))
+            .navigationBarHidden(true)
         }
         .refreshable {
             homeVM.fetchRandomUser()
         }
-        .onAppear(){
+        .onAppear {
             homeVM.fetchRandomUser()
         }
         .onReceive(homeVM.$popupEvent) { event in
@@ -53,11 +84,15 @@ struct HomeView: View {
                 break
             }
         }
-        .navigationBarBackButtonHidden(true)
     }
 }
 
+
 #Preview {
-    HomeView()
+    HomeView().environmentObject(PopupManager.shared)
+        .overlay(
+            PopupView()
+                .environmentObject(PopupManager.shared)
+        )
 }
 
