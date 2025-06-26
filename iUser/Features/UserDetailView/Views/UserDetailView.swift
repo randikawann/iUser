@@ -20,19 +20,21 @@ struct UserDetailView: View {
                 if let user = userDetailVM.user {
                     AsyncImage(url: URL(string: user.largeImage)) { image in
                         image.resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(maxWidth: .infinity)
                     } placeholder: {
-                        ProgressView()
+                        ProgressView().frame(maxWidth: .infinity, maxHeight: 200)
                     }
-                    .frame(width: 150, height: 150)
-                    .clipShape(Circle())
-                    
                     Text(user.fullName).font(.title)
                     Text(user.email).foregroundColor(.secondary)
                     Text(user.phone).foregroundColor(.secondary)
-                    
                     Spacer()
                 } else {
-                    Text("xcvbcvbrxctvyb").foregroundColor(.secondary)
+                    ProgressView().frame(maxWidth: .infinity, maxHeight: 200)
+                    Text("Full Name").font(.title)
+                    Text("Email").foregroundColor(.secondary)
+                    Text("Phone").foregroundColor(.secondary)
+                    Spacer()
                 }
             }
         }
