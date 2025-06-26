@@ -13,8 +13,13 @@ struct HomeView: View {
     
     var body: some View {
         NavigationView {
-            if let users = homeVM.users {
-                List(users, id: \.id) { user in
+            VStack {
+                Text("iUser")
+                    .font(.headline)
+                CommonTextField(hint: "Search name", value: $homeVM.inputText)
+                    .padding(.horizontal, 16)
+
+                List(homeVM.filteredUsers, id: \.id) { user in
                     NavigationLink(destination: UserDetailView(userEmail: user.email)                    ) {
                         HStack {
                             AsyncImage(url: URL(string: user.thumbImage)) { image in
@@ -28,8 +33,8 @@ struct HomeView: View {
                             Text(user.name)
                         }
                     }
-                    
                 }
+
             }
         }
         .refreshable {
