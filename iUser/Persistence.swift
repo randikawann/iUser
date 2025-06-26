@@ -2,7 +2,7 @@
 //  Persistence.swift
 //  iUser
 //
-//  Created by Arimac on 2025-06-26.
+//  Created by ranCreation on 2025-06-26.
 //
 
 import CoreData
