@@ -12,16 +12,15 @@ struct CommonTextField: View {
     @Binding var value: String
     
     var body: some View {
-        VStack (alignment: .leading, spacing: 1) {
+        HStack {
+            Image(systemName: "magnifyingglass")
+                .foregroundColor(.gray)
             TextField(hint, text: $value)
-            
-        }.padding()
-            .background(Color(.white))
-            .cornerRadius(12)
-            .overlay(
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.gray, lineWidth: 1)
-            )
+                .font(.system(size: 16))
+        }
+        .padding()
+        .background(Color(.systemGray6))
+        .cornerRadius(12)
     }
 }
 
