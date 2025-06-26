@@ -55,5 +55,9 @@ struct UserDetailView: View {
 }
 
 #Preview {
-    UserDetailView(userEmail: "")
+    UserDetailView(userEmail: "").environmentObject(PopupManager.shared)
+        .overlay(
+            PopupView()
+                .environmentObject(PopupManager.shared)
+        )
 }

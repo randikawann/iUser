@@ -89,6 +89,10 @@ struct HomeView: View {
 
 
 #Preview {
-    HomeView()
+    HomeView().environmentObject(PopupManager.shared)
+        .overlay(
+            PopupView()
+                .environmentObject(PopupManager.shared)
+        )
 }
 
