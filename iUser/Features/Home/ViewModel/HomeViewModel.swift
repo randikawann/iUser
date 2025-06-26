@@ -12,6 +12,16 @@ class HomeViewModel: ObservableObject {
     private let userRepository: UserRepositoryProtocol
     @Published var users: [User]?
     @Published var popupEvent: PopupEvent = .dismiss
+    @Published var inputText: String = ""
+    var filteredUsers: [User] {
+        guard !inputText.isEmpty else {
+            return users ?? []
+        }
+        
+        return users?.filter { user in
+            user.name.lowercased().contains(inputText.lowercased())
+        } ?? []
+    }
     
     init(userRepository: UserRepositoryProtocol = UserRepository()) {
         self.userRepository = userRepository
