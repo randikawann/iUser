@@ -38,6 +38,10 @@ struct RandomUser: Codable, Identifiable {
     }
     
     func toDomain() -> User {
-        return User(id: id.uuidString, name: name.fullName, thumbImage: picture.thumbnail)
+        return User(id: id.uuidString, name: name.fullName, thumbImage: picture.thumbnail, email: email)
+    }
+    
+    func toDomainSingle() -> UserDetail {
+        return UserDetail(id: id.uuidString, name: name.first, largeImage: picture.large, email: email, fullName: name.fullName, phone: phone)
     }
 }

@@ -10,5 +10,6 @@ struct User: Identifiable {
     let id: String
     let name: String
     let thumbImage: String
+    let email: String
 }
 
