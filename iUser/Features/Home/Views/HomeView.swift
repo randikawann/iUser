@@ -8,14 +8,14 @@
 import SwiftUI
 
 struct HomeView: View {
-    @ObservedObject private var homeVM = HomeViewModel()
+    @StateObject private var homeVM = HomeViewModel()
     @EnvironmentObject var popupManager: PopupManager
     
     var body: some View {
         NavigationView {
             if let users = homeVM.users {
                 List(users, id: \.id) { user in
-                    NavigationLink(destination: UserDetailView(userEmail: user.email )) {
+                    NavigationLink(destination: UserDetailView(userEmail: user.email)                    ) {
                         HStack {
                             AsyncImage(url: URL(string: user.thumbImage)) { image in
                                 image.resizable()
