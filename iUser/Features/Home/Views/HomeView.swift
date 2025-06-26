@@ -15,20 +15,21 @@ struct HomeView: View {
         NavigationView {
             if let users = homeVM.users {
                 List(users, id: \.id) { user in
-                    HStack {
-                        AsyncImage(url: URL(string: user.thumbImage)) { image in
-                            image.resizable()
-                        } placeholder: {
-                            ProgressView()
+                    NavigationLink(destination: UserDetailView(userID: user.id )) {
+                        HStack {
+                            AsyncImage(url: URL(string: user.thumbImage)) { image in
+                                image.resizable()
+                            } placeholder: {
+                                ProgressView()
+                            }
+                            .frame(width: 50, height: 50)
+                            .clipShape(Circle())
+                            
+                            Text(user.name)
                         }
-                        .frame(width: 50, height: 50)
-                        .clipShape(Circle())
-
-                        Text(user.name)
                     }
+                    
                 }
-            } else {
-                ProgressView("Loading users...")
             }
         }
         .refreshable {
