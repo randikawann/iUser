@@ -1,4 +1,4 @@
-# Random User SwiftUI App
+# iUser SwiftUI App
 
 ## Features
 
