@@ -12,7 +12,7 @@ struct UserDetailView: View {
     
     @EnvironmentObject var popupManager: PopupManager
     
-    let userEmail: String
+    let user: User
     
     var body: some View {
         NavigationView {
@@ -39,7 +39,7 @@ struct UserDetailView: View {
             }
         }
         .onAppear(){
-            userDetailVM.fetchSelectedUser(userEmail: userEmail)
+            userDetailVM.fetchSelectedUser(user: user)
         }
         .onReceive(userDetailVM.$popupEvent) { event in
             switch event {
@@ -57,9 +57,17 @@ struct UserDetailView: View {
 }
 
 #Preview {
-    UserDetailView(userEmail: "").environmentObject(PopupManager.shared)
-        .overlay(
-            PopupView()
-                .environmentObject(PopupManager.shared)
-        )
+    PreviewUserDetailView()
+}
+
+struct PreviewUserDetailView: View {
+    let user =  User(id: "", name: "", email: "", largeImage: "", thumbImage: "", fullName: "", phone: "")
+    
+    var body: some View {
+        UserDetailView(user: user).environmentObject(PopupManager.shared)
+            .overlay(
+                PopupView()
+                    .environmentObject(PopupManager.shared)
+            )
+    }
 }

@@ -9,5 +9,4 @@ import Foundation
 
 protocol UserRepositoryProtocol {
     func fetchRandomUsers(completion: @escaping (Bool, [User]?, NetworkError?) -> Void)
-    func fetchSelectedUser(id: String, completion: @escaping (Bool, UserDetail?, NetworkError?) -> Void)
 }

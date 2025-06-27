@@ -29,8 +29,8 @@ final class HomeViewModelTests: XCTestCase {
     func testFilteredUsers_withInput_returnsMatchingUsers() {
         // Given
         let users = [
-            User(id: "1", name: "Alice", thumbImage: "", email: "alice@email.com"),
-            User(id: "2", name: "Bob", thumbImage: "", email: "bob@email.com")
+            User(id: "1", name: "Alice", email: "alice@email.com", largeImage: "", thumbImage: "", fullName: "", phone: ""),
+            User(id: "2", name: "Bob", email: "bob@email.com", largeImage: "", thumbImage: "", fullName: "", phone: "")
         ]
         viewModel.users = users
         viewModel.inputText = "ali"
@@ -46,7 +46,7 @@ final class HomeViewModelTests: XCTestCase {
     func testFilteredUsers_withEmptyInput_returnsAllUsers() {
         // Given
         let users = [
-            User(id: "1", name: "Alice", thumbImage: "", email: "alice@email.com")
+            User(id: "1", name: "Alice", email: "alice@email.com", largeImage: "", thumbImage: "", fullName: "", phone: "")
         ]
         viewModel.users = users
         viewModel.inputText = ""
@@ -59,7 +59,7 @@ final class HomeViewModelTests: XCTestCase {
         // Given
         let expectation = XCTestExpectation(description: "Fetch success")
         let users = [
-            User(id: "1", name: "Alice", thumbImage: "", email: "alice@email.com")
+            User(id: "1", name: "Alice", email: "alice@email.com", largeImage: "", thumbImage: "", fullName: "", phone: "")
         ]
         mockRepo.fetchRandomUsers = (true, users, nil)
 
