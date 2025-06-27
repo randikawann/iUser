@@ -26,7 +26,7 @@ struct HomeView: View {
                 ScrollView {
                     LazyVStack(spacing: 12) {
                         ForEach(homeVM.filteredUsers, id: \.id) { user in
-                            NavigationLink(destination: UserDetailView(userEmail: user.email)) {
+                            NavigationLink(destination: UserDetailView(userEmail: user.email, user: user)) {
                                 HStack(spacing: 16) {
                                     AsyncImage(url: URL(string: user.thumbImage)) { image in
                                         image
