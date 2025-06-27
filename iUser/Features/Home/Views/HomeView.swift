@@ -44,9 +44,6 @@ struct HomeView: View {
                                         Text(user.name)
                                             .font(.headline)
                                             .foregroundColor(.primary)
-                                        Text(user.email)
-                                            .font(.subheadline)
-                                            .foregroundColor(.gray)
                                     }
                                     
                                     Spacer()
